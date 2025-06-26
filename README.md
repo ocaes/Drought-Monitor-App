@@ -6,8 +6,7 @@ The **Lesotho Drought Monitoring App** is an interactive Earth Engine applicatio
 2. **Interactive Dashboard**:  
    - District-level selection (including "All Districts").  
    - Monthly TVDI visualization via slider.  
-   - Time-series chart of TVDI dynamics.  
-   - Export tools for maps and statistics.  
+   - Time-series chart of TVDI dynamics.   
 3. **Metrics**: Mean TVDI values and drought classification at national/district scales.  
 
 ---
