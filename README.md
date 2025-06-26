@@ -1,6 +1,59 @@
 # Drought-Monitor-App
 
+### App Description  
+The **Lesotho Drought Monitoring App** is an interactive Earth Engine application that assesses drought conditions across Lesotho for 2023 using satellite-derived **Temperature Vegetation Dryness Index (TVDI)**. It features:  
+1. **Spatial Analysis**: Drought severity maps classified into five levels (Very Wet to Very Dry).  
+2. **Interactive Dashboard**:  
+   - District-level selection (including "All Districts").  
+   - Monthly TVDI visualization via slider.  
+   - Time-series chart of TVDI dynamics.  
+   - Export tools for maps and statistics.  
+3. **Metrics**: Mean TVDI values and drought classification at national/district scales.  
 
+---
+
+### Methodological Approach  
+1. **Data Acquisition**:  
+   - **MODIS LST** (MOD11A1.061) and **NDVI** (MOD13A1.061) for 2023.  
+   - Administrative boundaries from FAO GAUL (2015).  
+
+2. **Preprocessing**:  
+   - **LST**: Scaled to °C, masked using QC flags to retain high-quality pixels.  
+   - **NDVI**: Scaled (-1 to 1), masked via `SummaryQA` for reliable vegetation data.  
+
+3. **TVDI Calculation**:  
+   - **Data Integration**: Joined LST and NDVI collections within 3-day windows.  
+   - **Edge Detection**:  
+     - *Wet Edge*: 5th percentile of LST (coolest/wettest pixels).  
+     - *Dry Edge*: Linear regression of LST vs. NDVI (driest conditions).  
+   - **Formula**:  
+     \[
+     \text{TVDI} = \frac{\text{LST} - \text{LST}_{\text{wet}}}{\text{LST}_{\text{dry}} - \text{LST}_{\text{wet}}}
+     \]  
+     where \(\text{LST}_{\text{dry}} = \text{slope} \times \text{NDVI} + \text{intercept}\).  
+
+4. **Drought Classification**:  
+   - Annual mean TVDI categorized into 5 classes:  
+     - `1`: Very Wet (TVDI ≤ 0.2)  
+     - `5`: Very Dry (TVDI > 0.8)  
+
+5. **Validation**:  
+   - Fallback regression parameters used if insufficient data.  
+   - TVDI constrained to [0, 1] to avoid outliers.  
+
+---
+
+### Key References  
+1. **TVDI Framework**:  
+   Sandholt et al. (2002). [*Remote Sensing of Environment*](https://doi.org/10.1016/S0034-4257(01)00302-8).  
+2. **MODIS Processing**:  
+   Wan (2014) [LST](https://doi.org/10.1016/j.rse.2013.07.013); Didan (2015) [NDVI](https://lpdaac.usgs.gov/documents/101/MOD13_User_Guide_V6.pdf).  
+3. **Drought Classes**:  
+   Zhang et al. (2016) [*Remote Sensing*](https://doi.org/10.3390/rs8050381).  
+4. **GEE Implementation**:  
+   Gorelick et al. (2017) [*Remote Sensing of Environment*](https://doi.org/10.1016/j.rse.2017.06.031).  
+
+This operational tool supports drought resilience planning in Lesotho using peer-reviewed remote sensing methods.
 **Key Academic References:**
 
 1. **TVDI Concept**  
