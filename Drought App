@@ -180,7 +180,7 @@ classLabels.forEach(function(label, i) {
   row.style().set({margin: '2px 0'});
   panel.add(row);
 });
-
+/*
 // Export buttons panel
 var exportPanel = ui.Panel(null, ui.Panel.Layout.flow('horizontal'));
 exportPanel.style().set({margin: '10px 0', padding: '5px'});
@@ -216,7 +216,7 @@ var exportStatsBtn = ui.Button({
 
 exportPanel.add(exportImageBtn);
 exportPanel.add(exportStatsBtn);
-
+*/
 // Date slider for monthly TVDI display
 panel.add(ui.Label('SELECT MONTH:', {padding: '10px 5px 2px', fontWeight: 'bold'}));
 var slider = ui.Slider({
@@ -304,7 +304,7 @@ function createTVDIChart(region) {
     scale: 1000,
     xProperty: 'system:time_start'
   }).setOptions({
-    title: 'TVDI Time Series: '+ (region.get('ADM1_NAME') || 'Selected Area'),
+    title: 'TVDI Time Series:2023 ',
     vAxis: {title: 'TVDI Value', minValue: 0, maxValue: 1},
     hAxis: {title: 'Date', format: 'MMM yyyy'},
     lineWidth: 2,
